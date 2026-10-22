@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Absensi Kelas R3S</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Added authentication screen: existing dashboard below remains unchanged. -->
+  <section class="auth-screen" id="auth-screen">
+    <div class="auth-brand">
+      <h1>ABSENSI KELAS R3S</h1>
+    </div>
+
+    <div class="auth-card">
+      <img class="auth-logo-image" src="r3s-art.jpg" alt="Logo R3S">
+
+      <section class="auth-view active" data-auth-view="login">
+        <h2>MASUKKAN AKUN ANDA</h2>
+        <form id="login-form">
+          <input id="login-user" type="text" placeholder="NIM / USERNAME" autocomplete="username" required>
+          <div class="password-wrap">
+            <input id="login-password" type="password" placeholder="PASSWORD" autocomplete="current-password" required>
+            <button type="button" class="eye-btn" data-toggle-password="login-password">◡</button>
+          </div>
+          <button class="auth-submit" type="submit">Masuk</button>
+        <div class="login-roles"><span>Login sebagai Admin atau Mahasiswa</span></div></form>
+        <button class="auth-link" type="button" data-auth-target="forgot">Lupa Password?</button>
+        <p class="auth-switch">Belum punya akun? <button type="button" data-auth-target="register">Daftar Mahasiswa</button></p>
+        <p class="auth-message" id="login-message"></p>
+      </section>
+
+      <section class="auth-view" data-auth-view="register">
+        <h2>MASUKKAN AKUN ANDA</h2>
+        <p class="auth-subtitle">Buat akun untuk mengakses absensi kelas R3S</p>
+        <form id="register-form">
+          <label>NAMA LENGKAP</label>
+          <input id="register-name" type="text" placeholder="MASUKKAN NAMA LENGKAP ANDA" required>
+          <label>USERNAME / NIM</label>
+          <input id="register-user" type="text" placeholder="MASUKKAN NIM / USERNAME" required>
+          <label>PASSWORD</label>
+          <div class="password-wrap">
+            <input id="register-password" type="password" placeholder="MINIMAL 8 KARAKTER" minlength="8" required>
+            <button type="button" class="eye-btn" data-toggle-password="register-password">◡</button>
+          </div>
+          <label>KONFIRMASI PASSWORD</label>
+          <div class="password-wrap">
+            <input id="register-confirm" type="password" placeholder="MINIMAL 8 KARAKTER" minlength="8" required>
+            <button type="button" class="eye-btn" data-toggle-password="register-confirm">◡</button>
+          </div>
+          <button class="auth-submit" type="submit">Daftar</button>
+        </form>
+        <p class="auth-switch"><button type="button" data-auth-target="login">Kembali ke Login</button></p>
+        <p class="auth-message" id="register-message"></p>
+      </section>
+
+      <section class="auth-view" data-auth-view="forgot">
+        <h2>LUPA PASSWORD</h2>
+        <p class="auth-subtitle">Masukkan akun untuk menerima instruksi reset password</p>
+        <form id="forgot-form">
+          <label>EMAIL</label>
+          <input id="forgot-user" type="text" placeholder="email12@kampus.ac.id" required>
+          <button class="auth-submit" type="submit">Masuk</button>
+        </form>
+        <p class="auth-switch"><button type="button" data-auth-target="login">Kembali ke Login</button></p>
+        <p class="auth-message" id="forgot-message"></p>
+      </section>
+    </div>
+  </section>
+  
+  <div class="app-shell" id="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">
+          <img src="r3s-art.jpg" alt="Logo R3S" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+        </div>
+        <div class="brand-copy"><strong>Nama Admin</strong><small>Portal Mahasiswa</small></div>
+      </div>
+      <nav class="nav-menu" aria-label="Navigasi utama">
+        <button class="nav-item" data-page="admin-dashboard" id="admin-nav" hidden>Dashboard Kas</button>
+        <button class="nav-item" data-page="admin-absensi" id="admin-absensi-nav" hidden>Monitoring Absensi</button>
+        <button class="nav-item" data-page="admin-cuti" id="admin-cuti-nav" hidden>Pengajuan Cuti</button>
+        <button class="nav-item" data-page="admin-mahasiswa" id="admin-mahasiswa-nav" hidden>Daftar Mahasiswa</button>
+        
+        <button class="nav-item" data-page="dashboard">Dashboard</button>
+        <button class="nav-item active" data-page="absensi">Absensi</button>
+        <button class="nav-item" data-page="kas">Kas</button>
+        <button class="nav-item" data-page="cuti">Cuti</button>
+        <button class="nav-item" data-page="laporan">Laporan</button>
+        <button class="nav-item" data-page="informasi">Informasi</button>
+        <button class="nav-item" data-page="profil">Profil</button>
+        <button class="nav-item" data-page="daftar-login">Daftar Login</button>
+        <button class="nav-item logout" data-page="keluar">Keluar</button>
+      </nav>
+      <div class="sidebar-help">ⓘ Help</div>
+    </aside>
+
+    <main class="main-area">
+      <header class="page-heading">
+        <div>
+          <h1 id="page-title">ABSENSI</h1>
+          <p id="page-subtitle">Pencatatan Kehadiran Mahasiswa</p>
+        </div>
+        <div class="header-user"><span class="online-dot"></span><span>Portal Mahasiswa</span></div>
+      </header>
+
+      <!-- Admin Dashboard Kas -->
+      <section class="page" data-view="admin-dashboard">
+        <div class="admin-header-title">
+          <h2>Dashboard Kas</h2>
+          <p>Monitoring pembayaran kas kelas R3S</p>
+        </div>
+        
+        <div class="admin-stats-grid">
+          <div class="admin-stat-card">
+            <span>Total Saldo Kas Real-Time</span>
+            <strong>Rp 608.000</strong>
+          </div>
+          <div class="admin-stat-card">
+            <span>Pemasukan Bulan Ini</span>
+            <strong class="text-green">+ Rp 850.000</strong>
+          </div>
+          <div class="admin-stat-card">
+            <span>Pengeluaran Bulan Ini</span>
+            <strong class="text-red">- Rp 242.000</strong>
+          </div>
+        </div>
+
+        <div class="admin-grid-2">
+          <div class="admin-panel">
+            <h3>Status Kas Mahasiswa</h3>
+            <table class="admin-table">
+              <thead><tr><th>Nama Mahasiswa</th><th>Status Pembayaran</th></tr></thead>
+              <tbody>
+                <tr><td>Anisa</td><td><span class="text-green">Sudah Bayar</span></td></tr>
+                <tr><td>Rangga</td><td><span class="text-red">Belum Bayar</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="admin-panel">
+            <h3>Ringkasan Pengeluaran Kategori</h3>
+            <p class="admin-subtitle">Alokasi belanja kas</p>
+            <div class="admin-progress-item">
+              <div class="admin-progress-label">Fotokopi & Materi</div>
+              <div class="admin-progress-container">
+                <div class="admin-progress-bar-bg"><div class="fill" style="width: 44%;"></div></div>
+                <span class="admin-progress-value">44%</span>
+              </div>
+            </div>
+            <div class="admin-progress-item">
+              <div class="admin-progress-label">Alat Kebersihan</div>
+              <div class="admin-progress-container">
+                <div class="admin-progress-bar-bg"><div class="fill" style="width: 44%;"></div></div>
+                <span class="admin-progress-value">44%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Admin Monitoring Absensi -->
+      <section class="page" data-view="admin-absensi">
+        <div class="admin-header-title has-line">
+          <h2>Dashboard Kas</h2>
+          <p>Monitoring pembayaran kas kelas R3S</p>
+        </div>
+        
+        <div class="admin-stats-grid">
+          <div class="admin-stat-card">
+            <span>Hadir</span>
+            <strong>25</strong>
+          </div>
+          <div class="admin-stat-card">
+            <span>Izin</span>
+            <strong>3</strong>
+          </div>
+          <div class="admin-stat-card">
+            <span>Alpa</span>
+            <strong>2</strong>
+          </div>
+        </div>
+
+        <div class="admin-filter-row">
+          <label class="admin-date-picker">
+            <span class="date-icon">▦</span>
+            <input type="text" placeholder="dd/mm/yyyy" onfocus="(this.type='date')" onblur="(this.type='text')">
+          </label>
+        </div>
+
+        <div class="admin-panel full-width">
+          <h3>Monitoring Absen Mahasiswa</h3>
+          <table class="admin-table">
+            <thead><tr><th>Nama Mahasiswa</th><th>NIM</th><th>Mata Kuliah</th><th>Kehadiran</th></tr></thead>
+            <tbody>
+              <tr>
+                <td>Anisa</td><td>202543600982</td><td>Pemrograman</td>
+                <td>
+                  <div class="admin-checkbox-group">
+                    <input type="checkbox"><input type="checkbox"><input type="checkbox"><input type="checkbox"><input type="checkbox">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>Rangga</td><td>202543600872</td><td>Pemrograman</td>
+                <td>
+                  <div class="admin-checkbox-group">
+                    <input type="checkbox"><input type="checkbox"><input type="checkbox"><input type="checkbox"><input type="checkbox">
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Admin Pengajuan Cuti -->
+      <section class="page" data-view="admin-cuti">
+        <div class="admin-header-title has-line">
+          <h2>Pengajuan Cuti</h2>
+          <p>Verifikasi Pengajuan Cuti</p>
+        </div>
+        
+        <div class="admin-filter-row">
+          <label class="admin-date-picker">
+            <span class="date-icon">▦</span>
+            <input type="text" placeholder="dd/mm/yyyy" onfocus="(this.type='date')" onblur="(this.type='text')">
+          </label>
+        </div>
+
+        <div class="admin-panel full-width">
+          <h3>Monitoring Absen Mahasiswa</h3>
+          <table class="admin-table">
+            <thead><tr><th>Nama Mahasiswa</th><th>NIM</th><th>Alasan</th><th>Status</th><th>Aksi</th></tr></thead>
+            <tbody>
+              <tr>
+                <td>Anisa</td><td>202543600982</td><td>Kucing Melahirkan</td><td class="text-orange">Menunggu</td>
+                <td>
+                  <button class="admin-btn-approve">Setujui</button>
+                  <button class="admin-btn-reject">Tolak</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Admin Daftar Mahasiswa -->
+      <section class="page" data-view="admin-mahasiswa">
+        <div class="admin-header-title has-line">
+          <h2>Daftar Mahasiswa Admin</h2>
+          <p>Kelola data mahasiswa kelas R3S</p>
+        </div>
+
+        <div class="admin-panel full-width">
+          <h3>Daftar Mahasiswa</h3>
+          <div class="admin-search-box">
+            <input type="text" placeholder="Cari NIM atau nama...">
+          </div>
+          <table class="admin-table">
+            <thead><tr><th>Nama Mahasiswa</th><th>NIM</th><th>Kelas</th></tr></thead>
+            <tbody>
+              <tr><td>Anisa</td><td>202543600982</td><td>R3S</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="page page-dashboard" data-view="dashboard">
+        <div class="welcome-panel">
+          <div class="welcome-logo">R<span>3</span>S</div>
+          <div><p class="eyebrow">SELAMAT DATANG KEMBALI!</p><h2>Nama Mahasiswa</h2><p class="muted">NIM · Anggota Mahasiswa</p></div>
+        </div>
+        <div class="stats-grid">
+          <article class="stat-card"><span>Total Kehadiran</span><strong>15 <small>/ 15 pertemuan</small></strong><div class="progress"><i style="width:100%"></i></div></article>
+          <article class="stat-card"><span>Status Kehadiran</span><strong class="success">Lunas</strong><small>Seluruh kewajiban terpenuhi</small></article>
+          <article class="stat-card"><span>Pengajuan Cuti</span><strong>1 <small>pengajuan</small></strong><small>Terakhir: belum ada pengajuan</small></article>
+        </div>
+        <div class="dashboard-grid">
+          <article class="panel"><div class="panel-heading"><h3>Aktivitas Terbaru</h3><a href="#" data-page-link="laporan">Lihat Semua →</a></div>
+            <ul class="activity-list"><li><b>Absensi tercatat</b><small>Matakuliah Pemrograman · Hari ini</small></li><li><b>Pembayaran kas</b><small>Lunas · Rp 15.000</small></li><li><b>Pengajuan cuti</b><small>Status: Menunggu</small></li></ul>
+          </article>
+          <article class="panel"><div class="panel-heading"><h3>Chart Absensi</h3></div><div class="chart-wrap"><div class="pie-chart"></div><div class="chart-legend"><span><i class="legend-blue"></i>Hadir</span><span><i class="legend-purple"></i>Izin</span><span><i class="legend-yellow"></i>Sakit</span><span><i class="legend-pink"></i>Alpa</span></div></div></article>
+        </div>
+      </section>
+
+      <section class="page active-page" data-view="absensi">
+        <div class="attendance-top">
+          <label class="date-field"><span>▦</span><input type="date" id="attendance-date" aria-label="Tanggal absensi"></label>
+          <div class="timer-grid"><div class="timer-card"><small>Waktu</small><strong id="clock">24 : 00 : 00</strong><span>JAM&nbsp;&nbsp;&nbsp; MENIT&nbsp;&nbsp;&nbsp; DETIK</span></div><div class="timer-card"><small>Waktu Absen</small><strong>2 : 00 : 00</strong><span>JAM&nbsp;&nbsp;&nbsp; MENIT&nbsp;&nbsp;&nbsp; DETIK</span></div></div>
+        </div>
+        <article class="panel attendance-panel">
+          <div class="panel-heading"><h3>Riwayat Absensi</h3><select id="attendance-filter" aria-label="Filter absensi"><option value="all">Semua</option><option>Hadir</option><option>Izin</option><option>Sakit</option><option>Alpa</option></select></div>
+          <div class="table-scroll"><table><thead><tr><th><input type="checkbox" id="select-all" aria-label="Pilih semua"></th><th>MATA KULIAH</th><th>TANGGAL</th><th>STATUS KEHADIRAN</th><th></th></tr></thead><tbody id="attendance-rows">
+            <tr data-status="Hadir"><td>▪</td><td>Pemrograman Dasar</td><td>Oktober</td><td><span class="status present">Hadir</span></td><td><button class="more-btn">•••</button></td></tr>
+            <tr data-status="Hadir"><td>▪</td><td>Matematika Diskrit</td><td>Oktober</td><td><span class="status present">Hadir</span></td><td><button class="more-btn">•••</button></td></tr>
+            <tr data-status="Izin"><td>▪</td><td>Struktur Data</td><td>Oktober</td><td><span class="status leave">Izin</span></td><td><button class="more-btn">•••</button></td></tr>
+            <tr data-status="Hadir"><td>▪</td><td>Sistem Informasi</td><td>Oktober</td><td><span class="status present">Hadir</span></td><td><button class="more-btn">•••</button></td></tr>
+            <tr data-status="Sakit"><td>▪</td><td>Basis Data</td><td>Oktober</td><td><span class="status sick">Sakit</span></td><td><button class="more-btn">•••</button></td></tr>
+          </tbody></table></div>
+          <div class="table-actions"><button class="primary-btn" id="add-attendance">+ Tambah Absensi</button><span id="attendance-count">5 data ditampilkan</span></div>
+        </article>
+      </section>
+
+      <section class="page" data-view="kas">
+        <div class="balance-card"><div><small>Kas Bulanan Saya</small><strong>Rp 20.000</strong></div><button class="accent-btn" data-open-payment>Bayar Sekarang</button></div>
+        <div class="tabs"><button class="tab active" data-tab="biaya">Biaya Kas</button><button class="tab" data-tab="transaksi">Riwayat Transaksi</button></div>
+        <article class="panel kas-panel" id="biaya-tab"><div class="panel-heading"><h3>Biaya Kas</h3><select><option>Semua</option><option>Lunas</option><option>Belum Lunas</option></select></div><div class="table-scroll"><table><thead><tr><th>BULAN</th><th>TAHUN</th><th>BATAS PEMBAYARAN</th><th>NOMINAL</th><th>STATUS</th></tr></thead><tbody><tr><td>September</td><td>2026</td><td>25/09/2026</td><td>Rp 5.000</td><td><span class="status present">Lunas</span></td></tr><tr><td>Oktober</td><td>2026</td><td>25/10/2026</td><td>Rp 15.000</td><td><span class="status pending">Belum Lunas</span></td></tr></tbody></table></div><div class="total-line"><span>TOTAL KEWAJIBAN BULANAN</span><strong>Rp 20.000</strong></div></article>
+        <article class="panel payment-panel hidden" id="transaksi-tab"><h3>Riwayat Transaksi</h3><p>Belum ada transaksi terbaru.</p></article>
+        <article class="panel payment-panel hidden" id="payment-form"><h3>Metode Pembayaran</h3><label class="radio-line"><input type="radio" name="pay" value="Transfer" checked> Transfer</label><label class="radio-line"><input type="radio" name="pay" value="QRIS"> QRIS</label><button class="primary-btn" id="continue-payment">Lanjut →</button><p id="payment-message" class="muted"></p></article>
+      </section>
+
+      <section class="page" data-view="cuti">
+        <article class="form-panel"><h2>FROM PENGAJUAN CUTI</h2><form id="leave-form"><div class="form-two"><label>Tanggal Mulai<input type="date" required></label><label>Tanggal Selesai<input type="date" required></label></div><label>Alasan Cuti<textarea rows="4" placeholder="Masukkan alasan cuti..." required></textarea></label><button class="primary-btn" type="submit">Ajukan Cuti</button><p id="leave-message" class="muted"></p></form></article>
+      </section>
+
+      <section class="page" data-view="laporan">
+        <article class="panel"><div class="panel-heading"><h3>Laporan Absensi</h3><button class="primary-btn" id="export-report">Unduh CSV</button></div><div class="report-summary"><div><small>Total Pertemuan</small><strong>15</strong></div><div><small>Hadir</small><strong>13</strong></div><div><small>Izin / Sakit</small><strong>2</strong></div></div><p class="muted">Ringkasan kehadiran mahasiswa selama periode berjalan.</p></article>
+      </section>
+
+      <section class="page" data-view="informasi">
+        <div class="tabs info-tabs"><button class="tab active" data-info="bantuan">Bantuan</button><button class="tab" data-info="laporan-info">Laporan</button><button class="tab" data-info="pemberitahuan">Pemberitahuan</button></div>
+        <article class="panel info-panel"><h3 id="info-heading">Bantuan</h3><details open><summary>FAQ</summary><p>Temukan jawaban untuk pertanyaan umum seputar absensi, pembayaran kas, dan pengajuan cuti.</p></details><details><summary>Panduan Pengguna</summary><p>Pilih menu di sebelah kiri untuk membuka halaman. Isi formulir yang tersedia, lalu tekan tombol kirim.</p></details><details><summary>Pusat Informasi</summary><p>Informasi sistem dan pengumuman kelas akan ditampilkan di halaman ini.</p></details><details><summary>Kirim Laporan</summary><p>Hubungi pengelola kelas jika menemukan masalah pada data.</p></details><details><summary>Riwayat Laporan</summary><p>Belum ada laporan yang dikirim.</p></details></article>
+      </section>
+
+      <section class="page" data-view="profil">
+        <article class="panel profile-editor"><div class="panel-heading"><h3>Profil dan Pengaturan Akun</h3><span class="status present">R3S</span></div>
+          <div class="profile-photo-area"><img id="profile-avatar" src="r3s-art.jpg" alt="Foto profil"><div><strong id="profile-display-name">Admin R3S</strong><p class="muted">Foto profil ditampilkan di panel dan menu akun.</p><label class="primary-btn upload-label" for="profile-photo-input">Pilih Foto</label><input id="profile-photo-input" type="file" accept="image/*" hidden><button type="button" class="secondary-btn" id="profile-photo-reset">Gunakan Logo R3S</button></div></div>
+          <form id="profile-form" class="profile-form"><label>Nama Lengkap<input id="profile-name" value="Admin R3S" required></label><label>Username Admin<input id="profile-user" value="admin" required></label><label>Email<input id="profile-email" type="email" placeholder="admin@r3s.ac.id"></label><label>Nama Kelas / Organisasi<input id="profile-class" value="R3S"></label><div class="form-two"><label>Password Baru (opsional)<input id="profile-password" type="password" minlength="8" placeholder="Minimal 8 karakter"></label><label>Konfirmasi Password<input id="profile-password-confirm" type="password" minlength="8" placeholder="Ulangi password baru"></label></div><button class="primary-btn" type="submit">Simpan Pengaturan</button><p id="profile-message" class="muted"></p></form>
+        </article>
+        <article class="panel settings-panel"><h3>Pengaturan Tampilan</h3><p class="muted">Tema latar belakang memakai nuansa biru-toska R3S seperti halaman login.</p><label class="setting-line"><input type="checkbox" id="setting-compact"> Tampilan ringkas</label><button class="primary-btn" id="settings-save">Simpan Tampilan</button></article>
+      </section>
+
+      <section class="page" data-view="daftar-login">
+        <article class="panel login-history-panel">
+          <div class="panel-heading">
+            <div><h3>Daftar Login</h3><p class="muted">Riwayat akun yang masuk ke portal mahasiswa.</p></div>
+          </div>
+          <div class="table-scroll">
+            <table><thead><tr><th>NAMA</th><th>USERNAME / NIM</th><th>WAKTU LOGIN</th><th>STATUS</th></tr></thead>
+              <tbody id="login-history-rows"></tbody>
+            </table>
+          </div>
+          <div class="table-actions"><span id="login-history-count">0 login</span></div>
+        </article>
+      </section>
+
+      <section class="page" data-view="keluar"><article class="form-panel"><h2>Keluar dari Portal?</h2><p>Anda dapat kembali masuk kapan saja menggunakan akun Anda.</p><button class="primary-btn" id="logout-confirm">Ya, Keluar</button></article></section>
+      <footer class="main-footer">© 2026 R3S <span>Portal Mahasiswa</span></footer>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="script.js"></script>
+</body>
+</html>
